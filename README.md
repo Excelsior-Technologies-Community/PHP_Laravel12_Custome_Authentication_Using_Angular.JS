@@ -1,59 +1,261 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PHP_Laravel12_Custom_Authentication_Using_AngularJS
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simple custom authentication system built using **Laravel 12** as a REST API backend and **AngularJS (1.x)** as the frontend.
 
-## About Laravel
+This project demonstrates **User Registration and Login** with separate pages and **Confirm Password validation**, without using Laravel Sanctum, Breeze, Jetstream, or JWT. It is designed for beginners who want to clearly understand how custom authentication works.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Project Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This project covers:
 
-## Learning Laravel
+* Custom user registration and login
+* Password and confirm password validation
+* API-based authentication
+* AngularJS frontend with form handling
+* Laravel 12 backend with validation and hashing
+* MySQL database integration
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Features
 
-## Laravel Sponsors
+* Custom authentication without Breeze, Jetstream, or Sanctum
+* Separate Register and Login pages
+* Password and Confirm Password validation
+* AngularJS 1.8 frontend
+* Laravel 12 REST API backend
+* MySQL database
+* Beginner-friendly folder structure
+* Clean and easy-to-understand code
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Technology    | Usage                       |
+| ------------- | --------------------------- |
+| PHP           | Backend language            |
+| Laravel 12    | REST API development        |
+| AngularJS 1.8 | Frontend framework          |
+| MySQL         | Database                    |
+| REST API      | Client–server communication |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Project Structure
 
-## Code of Conduct
+```
+laravel-angular-auth/
+│
+├── app/
+│   ├── Http/Controllers/Api/AuthController.php
+│   └── Models/User.php
+│
+├── routes/
+│   └── api.php
+│
+├── public/
+│   ├── register.html
+│   ├── login.html
+│   └── js/
+│       └── app.js
+│
+├── database/
+│   └── migrations/
+│       └── create_users_table.php
+│
+├── .env
+└── README.md
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Installation and Setup
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Step 1: Create Laravel Project
+
+```bash
+composer create-project laravel/laravel laravel-angular-auth
+cd laravel-angular-auth
+```
+
+---
+
+### Step 2: Configure Database
+
+Create a MySQL database:
+
+```
+laravel_angular_auth
+```
+
+Update `.env` file:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel_angular_auth
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+---
+
+### Step 3: Run Migration
+
+```bash
+php artisan migrate
+```
+
+---
+
+## Authentication APIs
+
+### Register API
+
+**Endpoint**
+
+```
+POST /api/register
+```
+
+**Request Body**
+
+```json
+{
+  "name": "Mihir",
+  "email": "mihir@example.com",
+  "password": "123456",
+  "password_confirmation": "123456"
+}
+```
+
+---
+
+### Login API
+
+**Endpoint**
+
+```
+POST /api/login
+```
+
+**Request Body**
+
+```json
+{
+  "email": "mihir@example.com",
+  "password": "123456"
+}
+```
+
+---
+
+## Laravel Validation Used
+
+```php
+'password' => 'required|min:6|confirmed'
+```
+
+This validation:
+
+* Automatically checks `password_confirmation`
+* Prevents mismatched passwords
+* Is secure and recommended by Laravel
+
+---
+
+## Frontend Pages
+
+| Page     | URL                                                                        |
+| -------- | -------------------------------------------------------------------------- |
+| Register | [http://127.0.0.1:8000/register.html](http://127.0.0.1:8000/register.html) |
+| Login    | [http://127.0.0.1:8000/login.html](http://127.0.0.1:8000/login.html)       |
+
+---
+
+## Run the Project
+
+Start the Laravel development server:
+
+```bash
+php artisan serve
+```
+
+Open in browser:
+
+```
+http://127.0.0.1:8000/register.html
+```
+---
+## Screenshot
+### Register Page
+<img width="937" height="871" alt="image" src="https://github.com/user-attachments/assets/a3046218-c0ba-4637-96c7-2f5cf23cde51" />
+
+### Login Page
+<img width="765" height="722" alt="image" src="https://github.com/user-attachments/assets/d3477504-ac22-43c7-ab70-68bf8465d90c" />
+---
+---
+
+## Usage Flow
+
+1. Open the Register page
+2. Enter name, email, password, and confirm password
+3. Submit the form to register the user
+4. Open the Login page
+5. Login using registered email and password
+6. Authentication is validated via API
+
+---
+
+## Security Practices
+
+* Passwords are hashed using Laravel `Hash::make()`
+* Validation prevents empty or weak passwords
+* API-based authentication structure
+* CSRF protection can be added if needed
+
+---
+
+## Troubleshooting
+
+If you face issues:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+```
+
+Check:
+
+* Database credentials in `.env`
+* API routes in `routes/api.php`
+* AngularJS script loading correctly
+
+---
+
+## Ideal For
+
+* MCA or BCA projects
+* Beginners learning Laravel authentication
+* Understanding API-based login systems
+* Interview preparation
+* Laravel + AngularJS practice
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-source and available under the MIT License.
+
+---
+
+## Final Note
+
+This project focuses on clarity and simplicity. It avoids advanced authentication packages so beginners can understand how authentication works internally using Laravel and AngularJS.
+
+You are free to extend it with sessions, roles, or token-based authentication in the future.
