@@ -1,0 +1,186 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login container */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Login box */
+.login-box {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Heading */
+.login-box h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* Input fields */
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}
+
+/* Login button */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #45a049;
+}
+
+.login-btn:active {
+    transform: translateY(1px);
+}
+
+/* Message text */
+.message {
+    margin: 20px 0;
+    min-height: 24px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Register link */
+.register-link {
+    display: inline-block;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 15px;
+    padding: 8px 16px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.register-link:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 15px;
+    }
+
+    .login-box {
+        padding: 30px 20px;
+    }
+
+    .login-box h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+}
+
+/* Additional styles for register page */
+.register-link {
+    display: inline-block;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 15px;
+    padding: 8px 16px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.register-link:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Make the register button a different color for visual distinction */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.register-btn:hover {
+    background-color: #1976D2;
+}
+
+/* Update the register button focus state */
+.register-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
+}
+
+/* Adjust spacing for more input fields */
+.login-box {
+    padding: 40px 30px;
+}
+
+/* For the login link on register page */
+.login-link {
+    display: inline-block;
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 15px;
+    padding: 8px 16px;
+    border: 1px solid #2196F3;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.login-link:hover {
+    background-color: #2196F3;
+    color: white;
+}
