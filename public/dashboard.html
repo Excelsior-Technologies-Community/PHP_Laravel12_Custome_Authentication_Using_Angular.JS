@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="authApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body ng-controller="DashboardController">
+
+    <div class="container py-5">
+
+        <!-- Header -->
+        <div class="dashboard-header mb-4">
+
+            <div>
+                <h2 class="fw-bold mb-1">
+                    <i class="bi bi-people-fill"></i>
+                    User Dashboard
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Manage users with search, pagination and delete functionality.
+                </p>
+            </div>
+
+            <div class="d-flex gap-2">
+
+                <button class="btn btn-primary rounded-pill px-4" ng-click="goProfile()">
+
+                    <i class="bi bi-person-circle"></i>
+
+                    Profile
+
+                </button>
+
+                <button class="btn btn-danger rounded-pill px-4" ng-click="logout()">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Statistics -->
+        <div class="row g-4 mb-4">
+
+            <div class="col-lg-4">
+
+                <div class="stat-card blue">
+
+                    <div>
+
+                        <h6>Total Users</h6>
+
+                        <h2>{{users.total}}</h2>
+
+                    </div>
+
+                    <i class="bi bi-people-fill stat-icon"></i>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="stat-card green">
+
+                    <div>
+
+                        <h6>Current Page</h6>
+
+                        <h2>{{users.current_page}}</h2>
+
+                    </div>
+
+                    <i class="bi bi-collection-fill stat-icon"></i>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="stat-card orange">
+
+                    <div>
+
+                        <h6>Total Pages</h6>
+
+                        <h2>{{users.last_page}}</h2>
+
+                    </div>
+
+                    <i class="bi bi-file-earmark-bar-graph-fill stat-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Table Card -->
+
+        <div class="card border-0 shadow-lg rounded-4">
+
+            <div class="card-header bg-white border-0 py-4">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-6">
+
+                        <h4 class="fw-bold mb-0">
+
+                            User List
+
+                        </h4>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="search-box">
+
+                            <i class="bi bi-search"></i>
+
+                            <input type="text" class="form-control" placeholder="Search Name or Email" ng-model="search"
+                                ng-change="loadUsers()">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>User</th>
+
+                            <th>Email</th>
+
+                            <th>Created</th>
+
+                            <th class="text-center">Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr ng-repeat="user in users.data">
+
+                            <td>
+
+                                <span class="badge bg-primary rounded-pill px-3">
+
+                                    {{user.id}}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="avatar">
+
+                                        {{user.name.charAt(0)}}
+
+                                    </div>
+
+                                    <div class="ms-3">
+
+                                        <strong>
+
+                                            {{user.name}}
+
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+
+                                <i class="bi bi-envelope-fill text-primary"></i>
+
+                                {{user.email}}
+
+                            </td>
+
+                            <td>
+
+                                {{user.created_at | date:'dd MMM yyyy'}}
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <button class="btn btn-outline-danger btn-sm rounded-pill"
+                                    ng-click="deleteUser(user.id)">
+
+                                    <i class="bi bi-trash-fill"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Pagination -->
+
+            <div class="card-footer bg-white">
+
+                <nav>
+
+                    <ul class="pagination justify-content-center mb-0">
+
+                        <li class="page-item" ng-class="{disabled: users.current_page==1}">
+
+                            <a href="" class="page-link" ng-click="changePage(users.current_page-1)">
+
+                                <i class="bi bi-chevron-left"></i>
+
+                            </a>
+
+                        </li>
+
+                        <li class="page-item" ng-repeat="page in [].constructor(users.last_page) track by $index"
+                            ng-class="{active: users.current_page==($index+1)}">
+
+                            <a href="" class="page-link" ng-click="changePage($index+1)">
+
+                                {{$index+1}}
+
+                            </a>
+
+                        </li>
+
+                        <li class="page-item" ng-class="{disabled: users.current_page==users.last_page}">
+
+                            <a href="" class="page-link" ng-click="changePage(users.current_page+1)">
+
+                                <i class="bi bi-chevron-right"></i>
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
