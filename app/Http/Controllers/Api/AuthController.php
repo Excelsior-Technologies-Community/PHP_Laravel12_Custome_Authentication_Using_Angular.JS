@@ -113,4 +113,57 @@ class AuthController extends Controller
             'message' => 'Password changed successfully.'
         ]);
     }
+
+    // =======================================
+    // Dashboard Statistics
+    // =======================================
+    public function dashboard()
+    {
+        return response()->json([
+            'status' => true,
+            'total_users' => User::count(),
+            'today_users' => User::whereDate('created_at', today())->count(),
+            'latest_user' => User::latest()->first(),
+        ]);
+    }
+
+    // =======================================
+    // User List with Search & Pagination
+    // =======================================
+    public function users(Request $request)
+    {
+        $search = $request->search;
+
+        $users = User::when($search, function ($query) use ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        })
+           ->orderBy('id', 'asc')
+            ->paginate(5);
+
+        return response()->json($users);
+    }
+
+    // ===============================
+    // Delete User
+    // ===============================
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+
+            return response()->json([
+                'status' => false,
+                'message' => 'User not found.'
+            ]);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User deleted successfully.'
+        ]);
+    }
 }
