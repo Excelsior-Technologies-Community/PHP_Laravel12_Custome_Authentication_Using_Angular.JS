@@ -32,7 +32,7 @@ app.controller('RegisterController', function ($scope, $http) {
 
     };
 
-}); 
+});
 
 
 /* ==========================================
@@ -58,7 +58,7 @@ app.controller('LoginController', function ($scope, $http) {
 
                     alert(response.data.message);
 
-                    window.location.href = "profile.html";
+                    window.location.href = "dashboard.html";
 
                 } else {
 
@@ -124,6 +124,122 @@ app.controller('ProfileController', function ($scope, $http) {
 
 });
 
+/* ==========================================
+   DASHBOARD CONTROLLER
+========================================== */
+
+app.controller('DashboardController', function ($scope, $http) {
+
+    var user = JSON.parse(localStorage.getItem("loggedUser"));
+
+    if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+
+    $scope.dashboard = {};
+    $scope.users = {};
+    $scope.search = "";
+    $scope.page = 1;
+
+    /* Dashboard Statistics */
+
+    $scope.loadDashboard = function () {
+
+        $http.get('/api/dashboard')
+
+            .then(function (response) {
+
+                if (response.data.status) {
+
+                    $scope.dashboard = response.data;
+
+                }
+
+            });
+
+    };
+
+    /* User List */
+
+    $scope.loadUsers = function () {
+
+        $http.get('/api/users?page=' + $scope.page +
+            '&search=' + $scope.search)
+
+            .then(function (response) {
+
+                $scope.users = response.data;
+
+            });
+
+    };
+
+    /* Pagination */
+
+    $scope.changePage = function (page) {
+
+        if (page < 1 || page > $scope.users.last_page)
+            return;
+
+        $scope.page = page;
+
+        $scope.loadUsers();
+
+    };
+
+    /* Delete User */
+
+    $scope.deleteUser = function (id) {
+
+        if (confirm("Are you sure you want to delete this user?")) {
+
+            $http.delete('/api/users/' + id)
+
+                .then(function (response) {
+
+                    alert(response.data.message);
+
+                    $scope.loadDashboard();
+
+                    $scope.loadUsers();
+
+                });
+
+        }
+
+    };
+
+    /* Open Profile */
+
+    $scope.goProfile = function () {
+
+        window.location.href = "profile.html";
+
+    };
+
+    /* Logout */
+
+    $scope.logout = function () {
+
+        localStorage.removeItem("loggedUser");
+
+        alert("Logged out successfully.");
+
+        window.location.href = "login.html";
+
+    };
+
+    /* Initial Load */
+
+    $scope.loadDashboard();
+
+    $scope.loadUsers();
+
+});
+
 
 /* ==========================================
    CHANGE PASSWORD CONTROLLER
@@ -169,9 +285,13 @@ app.controller('ChangePasswordController', function ($scope, $http) {
             .catch(function (error) {
 
                 if (error.data && error.data.message) {
+
                     alert(error.data.message);
+
                 } else {
+
                     alert("Unable to change password.");
+
                 }
 
             });
