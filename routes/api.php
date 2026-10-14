@@ -16,4 +16,5 @@ Route::get('/dashboard', [AuthController::class, 'dashboard']);
 
 Route::get('/users', [AuthController::class, 'users']);
 
-Route::delete('/users/{id}',[AuthController::class,'deleteUser']);
+Route::delete('/users/{id}', [AuthController::class, 'deleteUser']);
+Route::post('/users/{id}/toggle-status', [AuthController::class, 'toggleStatus']);
